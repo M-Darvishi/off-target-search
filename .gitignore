@@ -1,0 +1,22 @@
+# Build files
+build/
+dist/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+# VS Code
+.vscode/
+
+# Compiled files
+*.o
+*.so
+
+# Large genome/data files
+*.fna
+*.fasta
+*.fa

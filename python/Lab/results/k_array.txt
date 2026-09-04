@@ -1,0 +1,175 @@
+Enter '0' to exite. 
+Chose betwean [2, 4, 6, 8, 10]: Module loaded
+Genome length: 4641652
+Guide: ACCATTA
+Maximum mismatches: 2
+K: 2
+Repeats: 10
+Warmups: 2
+
+Running Array serial benchmark...
+Array Serial → Time: 12.10 ms | Candidates: 558107 | Hits: 54335
+
+	Command being timed: "python3 kmers_array_k.py"
+	User time (seconds): 3.75
+	System time (seconds): 0.04
+	Percent of CPU this job got: 62%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 87668
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 28254
+	Voluntary context switches: 2
+	Involuntary context switches: 21
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 16
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Enter '0' to exite. 
+Chose betwean [2, 4, 6, 8, 10]: Module loaded
+Genome length: 4641652
+Guide: ACCATTACCCCC
+Maximum mismatches: 2
+K: 4
+Repeats: 10
+Warmups: 2
+
+Running Array serial benchmark...
+Array Serial → Time: 12.60 ms | Candidates: 50767 | Hits: 232
+
+	Command being timed: "python3 kmers_array_k.py"
+	User time (seconds): 0.46
+	System time (seconds): 0.03
+	Percent of CPU this job got: 21%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 53528
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 20408
+	Voluntary context switches: 2
+	Involuntary context switches: 3
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Enter '0' to exite. 
+Chose betwean [2, 4, 6, 8, 10]: Module loaded
+Genome length: 4641652
+Guide: ACCATTACCCCCATCGCC
+Maximum mismatches: 2
+K: 6
+Repeats: 10
+Warmups: 2
+
+Running Array serial benchmark...
+Array Serial → Time: 13.40 ms | Candidates: 5405 | Hits: 2
+
+	Command being timed: "python3 kmers_array_k.py"
+	User time (seconds): 0.30
+	System time (seconds): 0.03
+	Percent of CPU this job got: 13%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 54760
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 20330
+	Voluntary context switches: 2
+	Involuntary context switches: 2
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Enter '0' to exite. 
+Chose betwean [2, 4, 6, 8, 10]: Module loaded
+Genome length: 4641652
+Guide: ACCATTACCCCCATCGCCCAGTTC
+Maximum mismatches: 2
+K: 8
+Repeats: 10
+Warmups: 2
+
+Running Array serial benchmark...
+Array Serial → Time: 19.40 ms | Candidates: 333 | Hits: 1
+
+	Command being timed: "python3 kmers_array_k.py"
+	User time (seconds): 0.43
+	System time (seconds): 0.02
+	Percent of CPU this job got: 18%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.52
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 63016
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 16002
+	Voluntary context switches: 2
+	Involuntary context switches: 4
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Enter '0' to exite. 
+Chose betwean [2, 4, 6, 8, 10]: Module loaded
+Genome length: 4641652
+Guide: ACCATTACCCCCATCGCCCAGTTCCAGATCC
+Maximum mismatches: 2
+K: 10
+Repeats: 10
+Warmups: 2
+
+Running Array serial benchmark...
+Array Serial → Time: 66.90 ms | Candidates: 27 | Hits: 1
+
+	Command being timed: "python3 kmers_array_k.py"
+	User time (seconds): 1.58
+	System time (seconds): 0.04
+	Percent of CPU this job got: 20%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.12
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 103696
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 32357
+	Voluntary context switches: 2
+	Involuntary context switches: 7
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 24
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
