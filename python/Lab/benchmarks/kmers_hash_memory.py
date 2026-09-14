@@ -1,7 +1,7 @@
 import os 
 import sys 
 
-PROJECT_ROOT = os.path.abspath("../..")
+PROJECT_ROOT = os.path.abspath("../../..")
 sys.path.append(PROJECT_ROOT)
 sys.path.append(os.path.join(PROJECT_ROOT, "build"))
 
@@ -36,7 +36,7 @@ def kmer_hash_memory( GENOME_PATH , GUIDE , MAX_MISMATCH ,  K, REPEATS , WARMUPS
 THREADS_LIST = [1, 2, 4, 8, 16]
 REPEATS = 10 
 WARMUPS = 2
-GENOME = os.path.join( PROJECT_ROOT, "../data", "GCF_000005845.2_ASM584v2_genomic.fna" )
+GENOME = os.path.join( PROJECT_ROOT, "data", "GCF_000005845.2_ASM584v2_genomic.fna" )
 GUIDE_LIST = ["ACCATTA" ,
              "ACCATTACCCCC",
              "ACCATTACCCCCATCGCC",

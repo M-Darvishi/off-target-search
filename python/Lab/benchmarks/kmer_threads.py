@@ -2,7 +2,7 @@ import os
 import sys 
 import csv
 
-PROJECT_ROOT = os.path.abspath("../..")
+PROJECT_ROOT = os.path.abspath("../../..")
 sys.path.append(PROJECT_ROOT)
 sys.path.append(os.path.join(PROJECT_ROOT, "build"))
 
@@ -38,7 +38,7 @@ def threads_test_runner( GENOME_PATH , GUIDE , MAX_MISMATCH ,  K , THREADS_LIST 
     for threads in THREADS_LIST[1:]:
         print( f"Running Naive parallel " f"with {threads} threads..." ) 
         result = benchmark_naive_parallel( ot, genome, GUIDE, MAX_MISMATCH, K, threads, REPEATS, WARMUPS ) 
-        speedup = ( results["naive_serial"]["mean"] / result["mean"] ) 
+        speedup = ( results["naive_serial"]["median"] / result["median"] ) 
         result["speedup"] = speedup 
         results[f"naive_{threads}"] = result 
         print( f"Naive {threads:2d} threads → " f"Mean: {result['mean']:.2f} ms | " f"Median: {result['median']:.2f} ms | " f"Speedup: {speedup:.2f}x | " f"Candidates: {result['candidates']} | " f"Hits: {result['hits']}" ) 
@@ -57,7 +57,7 @@ def threads_test_runner( GENOME_PATH , GUIDE , MAX_MISMATCH ,  K , THREADS_LIST 
     for threads in THREADS_LIST[1:]:
         print( f"Running Array parallel " f"with {threads} threads..." ) 
         result = benchmark_array_parallel( ot, genome, GUIDE, MAX_MISMATCH, threads, REPEATS, WARMUPS, clear_cache ) 
-        speedup = ( results["array_serial"]["mean"] / result["mean"] ) 
+        speedup = ( results["array_serial"]["median"] / result["median"] ) 
         result["speedup"] = speedup  
         results[f"array_{threads}"] = result 
         print( f"Array {threads:2d} threads → " f"Mean: {result['mean']:.4f} ms | " f"Median: {result['median']:.4f} ms | " f"Speedup: {speedup:.4f}x | " f"Candidates: {result['candidates']} | " f"Hits: {result['hits']}" ) 
@@ -76,98 +76,11 @@ def threads_test_runner( GENOME_PATH , GUIDE , MAX_MISMATCH ,  K , THREADS_LIST 
     for threads in THREADS_LIST[1:]:
         print( f"Running Hash parallel " f"with {threads} threads..." ) 
         result = benchmark_hash_parallel( ot, genome, GUIDE, MAX_MISMATCH, threads, REPEATS, WARMUPS, clear_cache ) 
-        speedup = ( results["hash_serial"]["mean"] / result["mean"] ) 
+        speedup = ( results["hash_serial"]["median"] / result["median"] ) 
         result["speedup"] = speedup 
         results[f"hash_{threads}"] = result 
         print( f"Hash {threads:2d} threads → " f"Mean: {result['mean']:.4f} ms | " f"Median: {result['median']:.4f} ms | " f"Speedup: {speedup:.4f}x | " f"Candidates: {result['candidates']} | " f"Hits: {result['hits']}" ) 
     print()
-
-    return results
-
-
-
-def k_test_runner( GENOME_PATH , GUIDE_LIST , MAX_MISMATCH ,  K_LIST , THREADS , REPEATS , WARMUPS , clear_cache):
-
-    genome = ot.load_fasta(GENOME_PATH)
-
-    print("Module loaded") 
-    print(f"Genome length: {len(genome)}") 
-    print(f"Guide: {GUIDE_LIST}") 
-    print(f"Maximum mismatches: {MAX_MISMATCH}") 
-    print(f"Threads: {THREADS}") 
-    print(f"Repeats: {REPEATS}") 
-    print(f"Warmups: {WARMUPS}") 
-    print()
-
-    results = {}
-
-
-    for i in range(5):
-        k = K_LIST[i]
-        guide = GUIDE_LIST[i]
-        print( f"Running Naive serial " f"with {k}-k..." ) 
-        serial_result = benchmark_naive_serial( ot, genome, guide , MAX_MISMATCH, k , REPEATS, WARMUPS )
-        serial_result["speedup"] = 1.0
-        results[f"naive_serial_{k}"] = serial_result 
-        print( f"Naive Serial {k:2d}-k → " f"Mean: {serial_result['index_mean']:.2f} ms | " f"Median: {serial_result['index_median']:.2f} ms | " f"Candidates: {serial_result['candidates']} | " f"Hits: {serial_result['hits']}" )
-        print()
-        
-    for i in range(5):
-        k = K_LIST[i]
-        guide = GUIDE_LIST[i]
-        print( f"Running Naive parallel " f"with {k}-k..." ) 
-        result = benchmark_naive_parallel( ot, genome, guide, MAX_MISMATCH, k , THREADS, REPEATS, WARMUPS ) 
-        speedup = ( results[f"naive_serial_{k}"]["mean"] / result["mean"] ) 
-        result["speedup"] = speedup 
-        results[f"naive_parallel_{k}"] = result 
-        print( f"Naive {k:2d}-k → " f"Mean: {result['index_mean']:.2f} ms | " f"Median: {result['index_median']:.2f} ms | " f"Speedup: {speedup:.2f}x | " f"Candidates: {result['candidates']} | " f"Hits: {result['hits']}" ) 
-        print()
-
-  
-
-    for i in range(5):
-        k = K_LIST[i]
-        guide = GUIDE_LIST[i]
-        print( f"Running Array serial " f"with {k}-k..." ) 
-        serial_result = benchmark_array_serial( ot, genome, guide, MAX_MISMATCH, REPEATS, WARMUPS, clear_cache )
-        serial_result["speedup"] = 1.0
-        results[f"array_serial_{k}"] = serial_result 
-        print( f"Array Serial {k:2d}-k → " f"Mean: {serial_result['index_mean']:.2f} ms | " f"Median: {serial_result['index_median']:.2f} ms | " f"Candidates: {serial_result['candidates']} | " f"Hits: {serial_result['hits']}" )
-        print()
-        
-    for i in range(5):
-        k = K_LIST[i]
-        guide = GUIDE_LIST[i]
-        print( f"Running Array parallel " f"with {k}-k..." ) 
-        result =benchmark_array_parallel( ot, genome, guide, MAX_MISMATCH, THREADS, REPEATS, WARMUPS, clear_cache ) 
-        speedup = ( results[f"array_serial_{k}"]["mean"] / result["mean"] ) 
-        result["speedup"] = speedup 
-        results[f"array_parallel_{k}"] = result 
-        print( f"Array  {k:2d}-k → " f"Mean: {result['index_mean']:.2f} ms | " f"Median: {result['index_median']:.2f} ms | " f"Candidates: {result['candidates']} | " f"Hits: {result['hits']}" )
-        print()
-
-    
-
-    for i in range(5):
-        k = K_LIST[i]
-        guide = GUIDE_LIST[i]
-        print( f"Running Hash serial " f"with {k}-k..." ) 
-        serial_result = benchmark_hash_serial( ot, genome, guide, MAX_MISMATCH, REPEATS, WARMUPS, clear_cache )
-        serial_result["speedup"] = 1.0
-        results[f"hash_serial_{k}"] = serial_result 
-        print( f"Hash Serial {k:2d}-k → " f"Mean: {serial_result['index_mean']:.2f} ms | " f"Median: {serial_result['index_median']:.2f} ms | " f"Candidates: {serial_result['candidates']} | " f"Hits: {serial_result['hits']}" )
-        print()
-        
-    for i in range(5):
-        k = K_LIST[i]
-        guide = GUIDE_LIST[i]
-        print( f"Running Hash  parallel " f"with {k}-k..." ) 
-        result =benchmark_hash_parallel( ot, genome, guide, MAX_MISMATCH, THREADS, REPEATS, WARMUPS, clear_cache ) 
-        speedup = ( results[f"hash_serial_{k}"]["mean"] / result["mean"] ) 
-        result["speedup"] = speedup 
-        results[f"hash_parallel_{k}"] = result 
-        print( f"Hash {k:2d}-k → " f"Mean: {result['index_mean']:.2f} ms | " f"Median: {result['index_median']:.2f} ms | " f"Speedup: {speedup:.2f}x | " f"Candidates: {result['candidates']} | " f"Hits: {result['hits']}" ) 
-        print()
 
     return results
 
@@ -220,48 +133,6 @@ def save_threads_csv( results , CSV_PATH ):
 
 
 
-def save_k_results_csv(results, CSV_PATH):
-
-    os.makedirs(os.path.dirname(CSV_PATH), exist_ok=True)
-
-    with open(CSV_PATH, "w", newline="") as file:
-
-        writer = csv.writer(file)
-
-        writer.writerow(["algorithm", "mode", "k", "threads",
-            "index_mean_ms", "search_mean_ms", "collect_mean_ms", "total_mean_ms",
-            "index_median_ms", "search_median_ms", "collect_median_ms", "total_median_ms",
-            "speedup", "candidates", "hits"])
-
-        for key, result in results.items():
-
-            parts = key.split("_")
-
-            algorithm = parts[0]
-
-            if algorithm not in ["naive", "array", "hash"]:
-                continue
-
-            mode = parts[1]
-            k = int(parts[2])
-
-            if mode == "serial":
-                threads = 1
-
-            elif mode == "parallel":
-                threads = None
-
-            else:
-                continue
-
-            writer.writerow([ algorithm, mode, k, threads,
-                             result["index_mean"], result["search_mean"], result.get("collect_mean"), result["mean"],
-                             result["index_median"], result["search_median"], result.get("collect_median"), result["median"],
-                             result["speedup"], result["candidates"], result["hits"]])
-
-    print(f"Results saved to: {CSV_PATH}")
-
-
 
 THREADS_LIST = [1, 2, 4, 8, 16]
 REPEATS = 10 
@@ -272,20 +143,8 @@ GENOME= os.path.join( PROJECT_ROOT, "data", "GCF_000005845.2_ASM584v2_genomic.fn
 cache_test_guide= "ACGCGCCGATTGTTGCGAGA" 
 cache_test_maxmismatch= 2
 cache_test_k = 6
-cache_test_cvs_path= os.path.join( PROJECT_ROOT, "python/Lab/reults", "threads_cached_results.csv" )
+cache_test_cvs_path= os.path.join( PROJECT_ROOT, "python/Lab/results", "threads_results.csv" )
 cache_test_clear_cache = True # کش رو حذف کنم ؟ بله 
-#cache_test_result = threads_test_runner( GENOME , cache_test_guide , cache_test_maxmismatch , cache_test_k  , THREADS_LIST , REPEATS , WARMUPS , cache_test_cvs_path , cache_test_clear_cache)
-#save_threads_csv(cache_test_result, cache_test_cvs_path )
+cache_test_result = threads_test_runner( GENOME , cache_test_guide , cache_test_maxmismatch , cache_test_k  , THREADS_LIST , REPEATS , WARMUPS  , cache_test_clear_cache)
+save_threads_csv(cache_test_result, cache_test_cvs_path )
 
-
-guide_list= ["ACCATTA" ,
-             "ACCATTACCCCC",
-             "ACCATTACCCCCATCGCC",
-             "ACCATTACCCCCATCGCCCAGTTC", 
-             "ACCATTACCCCCATCGCCCAGTTCCAGATCC"]
-k_list=[2,4,6,8,10]
-k_test_maxmismatch=2
-k_test_cvs_path= os.path.join( PROJECT_ROOT, "python/Lab/reults" , "k_results.csv")
-k_test_cache = False # با استفادخ از کش
-k_test_result = k_test_runner( GENOME , guide_list , k_test_maxmismatch , k_list , 2 , REPEATS , WARMUPS , k_test_cache)
-#save_k_results_csv(k_test_result,k_test_cvs_path)

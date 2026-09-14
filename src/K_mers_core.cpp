@@ -45,9 +45,11 @@ void clear_kmer_cache() {
 
 static void build_cache_if_needed_serial(const std::string& genome, int k , Method method)
 {
-    if (cached_genome == genome && cached_k == k) {
+    if (cached_genome == genome && cached_k == k && cached_method == method) {
         return;
     }
+    clear_kmer_cache();
+    cached_method = method;
 
     if (method == Method::Array) 
     {

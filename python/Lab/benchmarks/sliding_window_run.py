@@ -2,7 +2,7 @@ import os
 import sys
 import csv
 
-PROJECT_ROOT = os.path.abspath("../..")
+PROJECT_ROOT = os.path.abspath("../../..")
 sys.path.append(PROJECT_ROOT)
 sys.path.append(os.path.join(PROJECT_ROOT, "build"))
 
@@ -18,7 +18,7 @@ THREADS_LIST = [1, 2, 4, 8, 16]
 REPEATS = 10
 WARMUPS = 2
 
-CSV_PATH = os.path.join( PROJECT_ROOT, "python.Lab.results", "sliding_window_results.csv")
+CSV_PATH = os.path.join( PROJECT_ROOT, "python/Lab/results", "sliding_window_results.csv")
  
 genome = ot.load_fasta(GENOME_PATH)
 
@@ -40,7 +40,7 @@ results = { "serial": { **serial_result, "speedup": 1.0 } }
 for threads in THREADS_LIST[1:]:
     print(f"Running {threads} threads...") 
     result = benchmark_parallel( ot, genome, GUIDE, MAX_MISMATCH, threads, REPEATS, WARMUPS ) 
-    speedup = serial_result["mean"] / result["mean"] 
+    speedup = serial_result["median"] / result["median"] 
     result["speedup"] = speedup 
     results[threads] = result 
     print( f"Threads: {threads:2d} → " f"Mean: {result['mean']:.2f} ms | " f"Median: {result['median']:.2f} ms | " f"Speedup: {speedup:.2f}x | " f"Hits: {result['hits']}" ) 

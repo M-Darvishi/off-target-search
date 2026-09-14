@@ -18,6 +18,7 @@ uint64_t encode_kmer(const std::string& s, size_t start_i, int k) {
     return code;
 }
 
+
 static uint64_t base_to_bits(char c)
 {
     switch (c)
@@ -30,6 +31,7 @@ static uint64_t base_to_bits(char c)
 
     return 0;
 }
+
 
 uint64_t rolling_hash_next(uint64_t current, char next_base, int k)
 { 

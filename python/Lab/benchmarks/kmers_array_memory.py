@@ -1,16 +1,15 @@
 import os 
 import sys 
-import csv
 
-PROJECT_ROOT = os.path.abspath("../..")
+PROJECT_ROOT = os.path.abspath("../../..")
 sys.path.append(PROJECT_ROOT)
 sys.path.append(os.path.join(PROJECT_ROOT, "build"))
 
 import offtarget_search as ot
-from python.Lab.modules.kmer import (benchmark_naive_serial)
+from python.Lab.modules.kmer import (benchmark_array_serial)
 
 
-def kmer_naive_memory( GENOME_PATH , GUIDE , MAX_MISMATCH ,  K, REPEATS , WARMUPS , clear_cache):
+def kmer_array_memory( GENOME_PATH , GUIDE , MAX_MISMATCH ,  K, REPEATS , WARMUPS , clear_cache):
 
     genome = ot.load_fasta(GENOME_PATH)
 
@@ -25,11 +24,11 @@ def kmer_naive_memory( GENOME_PATH , GUIDE , MAX_MISMATCH ,  K, REPEATS , WARMUP
 
     results = {}
 
-    print("Running Naive serial benchmark...")
+    print("Running Array serial benchmark...")
 
-    result = benchmark_naive_serial( ot, genome, GUIDE, MAX_MISMATCH, K, REPEATS, WARMUPS )
-    results["naive_serial"] = result
-    print( f"Naive Serial → " f"Time: {result['index_mean']:.2f} ms | " f"Candidates: {result['candidates']} | " f"Hits: {result['hits']}" )
+    result = benchmark_array_serial( ot, genome, GUIDE, MAX_MISMATCH, K, REPEATS, WARMUPS )
+    results["array_serial"] = result
+    print( f"Array Serial → " f"Time: {result['index_mean']:.2f} ms | " f"Candidates: {result['candidates']} | " f"Hits: {result['hits']}" )
     print()
 
 
@@ -37,7 +36,7 @@ def kmer_naive_memory( GENOME_PATH , GUIDE , MAX_MISMATCH ,  K, REPEATS , WARMUP
 THREADS_LIST = [1, 2, 4, 8, 16]
 REPEATS = 10 
 WARMUPS = 2
-GENOME = os.path.join( PROJECT_ROOT, "../data", "GCF_000005845.2_ASM584v2_genomic.fna" )
+GENOME = os.path.join( PROJECT_ROOT, "data", "GCF_000005845.2_ASM584v2_genomic.fna" )
 GUIDE_LIST = ["ACCATTA" ,
              "ACCATTACCCCC",
              "ACCATTACCCCCATCGCC",
@@ -52,7 +51,7 @@ while(True):
     k = int(input("Enter '0' to exite. \nChose betwean [2, 4, 6, 8, 10]: "))
     if k in K_LIST:
         i = K_LIST.index(k)
-        result = kmer_naive_memory( GENOME , GUIDE_LIST[i] , MAX_MISSMATCH , k  , REPEATS , WARMUPS , CLEAR_CACHE)
+        result = kmer_array_memory( GENOME , GUIDE_LIST[i] , MAX_MISSMATCH , k  , REPEATS , WARMUPS , CLEAR_CACHE)
         break
     elif(k==0):
         break

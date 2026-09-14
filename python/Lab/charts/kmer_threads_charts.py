@@ -89,7 +89,7 @@ def plot_speedup(results, threads):
 CSV_PATH = os.path.join(
     PROJECT_ROOT,
     "python/Lab/results",
-    "threads_cached_results.csv"
+    "threads_results.csv"
 )
 results = load_kmer_cache_results(CSV_PATH)
 threads= [2 , 4, 8, 16]
